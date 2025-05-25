@@ -1,0 +1,17 @@
+Frequently Asked Questions about Python Programming
+Date: May 2025
+
+1. What is Python?
+Python is a high-level, interpreted programming language known for its readability and simplicity. It supports multiple programming paradigms, including object-oriented, functional, and procedural programming.
+
+2. What are Python's main uses?
+Python is used in web development (e.g., Django, Flask), data science (e.g., Pandas, NumPy), automation, artificial intelligence, machine learning, and scripting.
+
+3. How do I install Python?
+Download the latest version from python.org. Follow the installer instructions for your operating system (Windows, macOS, or Linux). Ensure you add Python to your system's PATH during installation.
+
+4. What is the difference between Python 2 and Python 3?
+Python 2 is a legacy version, no longer supported since January 2020. Python 3 is the current version, with improvements like better Unicode support, print function syntax, and enhanced libraries. Always use Python 3 for new projects.
+
+5. How can I manage Python packages?
+Use pip, Python's package manager. For example, to install a package, run 'pip install package_name'. Virtual environments (e.g., venv or virtualenv) help manage dependencies for different projects.
