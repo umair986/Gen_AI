@@ -10,7 +10,7 @@ def respond(message, chat_history):
 
 with gr.Blocks() as demo :
     chatbot = gr.Chatbot(type= "tuple", height=400)
-    user_Input = gr.Textbox(placeholder="Type your question here..", submit_ btn=True)
+    user_Input = gr.Textbox(placeholder="Type your question here..", submit_btn=True)
     ticket_dropdown = gr.Dropdown(choices=["Yes","No"], label="Raise a Jira Ticket?", visible=False)
     user_Input.submit(
         respond, 
