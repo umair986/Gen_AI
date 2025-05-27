@@ -1,4 +1,6 @@
 import os
+import re
+from jira import JIRA
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_chroma import Chroma
@@ -64,3 +66,36 @@ def get_answer(user_query: str, use_memory=True) -> str:
         chat_history.append(AIMessage(content=answer))
 
     return answer
+
+def extract_ticket_fields(message:str)-> dict:
+    # Extracts description, priority, and issue type from the user's message.
+    priority_match = re.search(r"\b(high|medium|low)\b", message, re.IGNORECASE)
+    type_match = re.search(r"\b(high|medium|low)\b", message, re.IGNORECASE)
+
+    description = message.strip()  # Use the entire message minus matched keywords as description fallback
+
+    if priority_match and type_match:
+        return{
+            "description" : description,
+            "priority" : priority_match.group(1).capitalize(),
+            "issue_type" : type_match.group(1).capitalize()
+        }
+    return None #if nothing is found
+
+def create_jira_ticket(fields : dict) -> str:
+    # Creates a Jira ticket using provided fields and returns the issue ID.
+    jira = JIRA(
+        server = os.getenv("JIRA_URL"),
+        basic_auth = (os.getenv("JIRA_USER"), os.getenv("JIRA_API_TOKEN"))
+    )
+
+    issue_dict = {
+        'project': {'key': os.getenv("JIRA_PROJECT_KEY")},
+        'summary': fields['description'][:50],  # Truncated summary
+        'description': fields['description'],
+        'issuetype': {'name': fields['issue_type']},
+        'priority': {'name': fields['priority']}
+    }
+
+    issue = jira.create_issue(fields=issue_dict)
+    return issue.key
