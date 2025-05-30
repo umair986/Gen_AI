@@ -68,7 +68,7 @@ GOOGLE_API_KEY=your_google_api_key
 1. Run the chatbot server:
 
 ```bash
-python chatbot.py
+python frontend.py
 ```
 
 2. Open the local Gradio URL (e.g., `http://localhost:7860`) in your browser.
